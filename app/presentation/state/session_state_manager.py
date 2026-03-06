@@ -1,13 +1,12 @@
+from glob import glob
+
 import streamlit as st
 from datetime import datetime
 import pandas as pd
 import os
+from entitites.activities import Activity
 
-files = {}
-
-for file in os.listdir("inputs"):
-    if file.endswith(".xlsx") and file.startswith("data_202509"):
-        files[file] = os.path.join("inputs", file)
+root_path = "./inputs/activities/"
 
 
 def initialize_session_state(debug: bool = False):
@@ -21,20 +20,16 @@ def initialize_session_state(debug: bool = False):
     st.session_state.setdefault("debug", debug)
     st.session_state.setdefault("current_date", current_date)
     st.session_state.setdefault("time", time)
-
-    st.session_state.setdefault("transactions_file", None)
-    st.session_state.setdefault("transactions_data", None)
+    st.session_state.setdefault("activities", None)
 
     # import data if not already in session state and cache them in session state
-    if st.session_state.transactions_data is None:
-        st.session_state.transactions_file = files.get("data_202509.xlsx", None)
+    if st.session_state.activities is None:
+        activities = []
+        # Recursively find all .fit files
+        files = glob(os.path.join(root_path, "**/*.fit"), recursive=True)
 
-        st.session_state.transactions_data = (
-            pd.read_excel(
-                st.session_state.transactions_file,
-                sheet_name="Final",
-                engine="openpyxl",
-            )
-            if st.session_state.transactions_file
-            else None
-        )
+        for f in files:
+            act = Activity(f)
+            activities.append({"date": act.date, "trimp": act.calculate_trimp()})
+
+        st.session_state["activities"] = activities
