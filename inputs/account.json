@@ -1,0 +1,30 @@
+{
+    "username": "ErikPillon",
+    "name": "Erik Pillon",
+    "mail": "erik.pillon@gmail.com",
+    "language": "en",
+    "timezone": {
+        "id": 43,
+        "name": "Europe\/Berlin"
+    },
+    "gender": 1,
+    "birthyear": 1994,
+    "registerdate": 1738067746,
+    "lastaction": 1766090882,
+    "activeDays": 235,
+    "allowMails": false,
+    "defaultLocation": "u0u673f",
+    "country": {
+        "id": 136,
+        "name": "lu"
+    },
+    "dateFormat": 0,
+    "timeFormat": 1,
+    "numberFormat": 0,
+    "role": 1,
+    "roleAdFree": null,
+    "subscriptionStatus": 1,
+    "tester": false,
+    "avatarType": 0,
+    "status": 1
+}
